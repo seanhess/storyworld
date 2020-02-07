@@ -1,0 +1,83 @@
+hardmoves:
+- name: Complicate Things, Bigtime
+  description: |
+    You introduce a new crisis into the story or escalate an existing problem into a crisis. The crisis is a real and immediate threat to the lead characters; it can cost the characters a great deal in the very near future. This crisis can affect the wellbeing of the lead characters, their lives, characters around them, the course of their investigation, the state of things in the City, etc. Mitigating the crisis usually requires several successful player moves and/or forces the players to sacrifice game resources (e.g., mark Fade or Crack, burn tags, spend Juice, etc.)
+
+    > Kitsune and Post-Mortem sneak into the morgue to take a look at the body of a high-profile businessman who was murdered. As they sneak by the guards, Kitsune slips (missing his move) and the guards spot them. The MC tells the players the guards set off the alarm, calling for reinforcement from the nearby station. Soon the police will barricade and then storm the morgue.
+
+    > Declan L’Estrange and Excalibur are in the sewers, standing over the carcass of a monstrous creepy crawler they have just slain, with great effort. Declan tries to Investigate the dead monster and misses the move. The MC tells them the creature thrashes one more time, hitting the floor of the tunnel with immense force and collapsing it beneath them. The two crash into a cistern beneath the tunnel. As the pair dust themselves up, they find themselves in a nest swarming with the creature’s spawn!
+
+    > Sullivan and his lover Margo Falls are being held at gunpoint in the metalworks factory by his ex-partner, Ale Sánchez. Sullivan tries to disarm Sánchez by Going Toe to Toe but misses. The MC says that while Sullivan gets the gun, Sánchez knocks Margo out of balance and holds her over the railing, above a giant glowing pot of molten steel. “One more step, Sully, and she’s fried!”
+
+- name: Deny Them Something They Want
+  description: |
+    You declare that something that the characters want is no longer within their reach, at least not within the scope of the current scene. For exam- ple, a witness could get away, an item could be stolen, or a course of action could be revealed as dead-ended or impossible
+
+    > Denying an item: Flicker and Mitosis are in the office of a renowned art collector, trying to Convince him to lend them a specific Polynesian Tiki mask they need to fight an insane Rift. When Flicker misses the roll, the MC, playing the collector, says “I already sold the mask. To your enemy!”
+
+    > Denying information: Hitting the Ambrosia club for information about a murder case, Det. Enkidu asks around for anyone who knew the victim. Missing her Investigate move, the MC tells her that the lips of everyone in the club are sealed and that the detective understands the clubbers are fearful of something far worse than getting in trouble with the police. Two bouncers close in on her on the dancefloor and, upon discovering she has no warrant, escort her to the back door
+
+- name: Make Something Horrible Happen
+  description: |
+    Describe a shocking development for emotional effect. This could be the tragic loss, gruesome injury, or even sudden death of a non-player character, a personal loss of a lead character, a tragedy or catastrophe in the City, etc
+
+    > Sullivan and his lover Margo Falls are being held at gunpoint in the metalworks factory by his ex-partner, Ale Sánchez. Sullivan tries to disarm Sánchez by Going Toe to Toe but misses. The MC says Sánchez fires, but Margo protects Sullivan with her body and takes a bullet to the heart. Lamar, who plays Sullivan, gets to play out the tragic final moments.
+
+    > As the Big Bad Wolf is about to unveil his evil scheme at the dog pound, Goodfellow leaps at her and tries to pin her down, missing the move. The Big Bad Wolf slams the retired man against a wall and laughs madly as she remotely unlocks all the doors in the kennels. Instead of cute puppies, a horde of grizzly werewolves breaks out of the kennels and pours out into the City, hungry and violent.
+
+- name: Turn Their Move Against Them
+  description: |
+    Describe an outcome that is similar to what the character was trying to achieve in her action, but has negative implications instead.
+
+    > During a charity gala, the glamorous Excalibur tries to beguile a dashing middle-aged oil tycoon in order to glean information about his business, which the crew suspects is connected to criminal activity. When she misses her Investigate move, the MC decides that the tycoon is not just beguiled by Excalibur – he’s enamored! From now on, this powerful man tries to spend as much time as possible with Excalibur... which might be a problem, seeing as she spends a lot of it taking part in clandestine activities against him and his business associates.
+
+
+- name: Give a Status
+  description: |
+    Give a status with a tag and a tier of your choice to a player character, an ally or an object belonging to a player, or a non-player character or object. You can affect a single target, multiple targets, anyone within an area or who meet specific conditions, etc.
+
+    Narrate the development that inflicts the status and describe it. Name the tag and the tier of the status; they should describe the nature and severity of the condition the target would suffer if hit by the full power of the effect.
+
+    The nature of the effect defines how difficult it would be to defend from the status: whether a Face Danger move can be attempted and which tags, if any, may be relevant. For example, defending from a punch that causes a bruised-2 status would require different abilities from those required to defend from an ancient curse that causes turned-to-stone-5.
+
+    If the recipient of the status is a player character or one of her allies or objects, the player of that character may Face Danger to reduce or ignore the status, assuming the character is able to do so. You may also rule that the character is in a situation so deadly, hopeless, or dead-ended that she cannot Face Danger.
+
+    If the recipient is a non-player character or object, they take the status in full. If they have relevant Danger moves that modify the status, they apply. You can also use this move to give a Danger which is competing with the lead characters a positive status, such as cover-2. Read more about statuses and Dangers in Chapter 3: This is MY City!"
+
+    > Sullivan gets into a knife-fight with a Red Cap hooligan on the docks. He misses his Go Toe to Toe move, so the MC describes the Red Cap swinging swiftly on his heels and cutting Sullivan under his ribs, noting that the full effect of the stab would be a bleeding-gash-3 status. Since Sullivan still has his spectral armor and worn-out leather jacket, the MC rules he can Face Danger.
+
+    > Not far from there, Post-Mortem is not so lucky. She is sneaking through a labyrinth of shipping containers to try and get the drop on Stanislaw the Vile and his smugglers. Unfortunately for her, she misses her Sneak Around move. The MC determines she is surrounded-3 and that she cannot Face Danger, because by the time she discovers her predicament, the smugglers are already in position, aiming their SMGs at her.
+
+
+- name: Remove or Reduce a Status
+  description: |
+    Reduce the tier of any status in the game by any number of tiers or completely remove it, if appropriate. This could affect positive statuses that the crew members possess or negative statuses on Dangers
+
+    > Goodfellow is hiding from the Rift of the Ogre who is looking for him in a storage unit. He successfully Changes the Game to get some hidden-2 and hides inside a cardboard box. He then Sneaks Around and exits the storage unit while the box is still on him – and fails.  As the Ogre’s fingers tear through the cardboard, the MC takes away Goodfellow’s hidden-2 status.
+
+    You can also use this move to remove any number of Juice points a player has banked. Describe an appropriate story development that explains why the advantage previously won by the player is no longer relevant
+
+    > Declan L’Estrange is caught in a gunslinging fight to the death with the Rift of Artemis, the goddess of hunting. At the beginning of the fight, he uses his mysterious reality bending, premonitions, and subconscious reaction speed to Change the Game and gain 3 Juice, which he banks. Later, he fails to Hit With All He’s Got. The MC rules that he takes an insignificant flesh wound, but that the hit throws him off so his advantage on Artemis is not as significant as before; his banked Juice is reduced from 3 to 1.
+
+
+- name: Burn a Tag
+  description: |
+    You burn one of the player characters’ power tags or story tags or a crew or extra power tag. Tell the player to mark the burn icon ( ) next to it (or discard it, if it’s a temporary or an ongoing story tag). The burnt tag can be recovered normally. Burning a tag represents an ability, item, ally, or resource that is rendered temporarily unusable (see Burning Tags, page 209 in the Player's Guide
+
+    > During a fight with Morgana, Excalibur smites her mortal enemy, Hitting With All She’s Got. Unfortunately, she misses the move. The MC says Morgana blocks the attack with a dark spell that attaches itself to the Excalibur’s bracelet (her Relic) and prevents it from changing into a weapon. The MC has the tag can change into any weapon burnt
+
+- name: Force Them to Choose
+  description: |
+    Describe a development that forces a player to choose between two undesirable outcomes, each a hard MC move in itself. For example:
+
+    > Sullivan is chasing a hitman on the roof of a speeding subway car. He misses the Go Toe to Toe move. The MC says a lower tunnel approaches and the hitman slips under it; Sullivan could do it, but he has no time to orient his shotgun. He can choose between dropping his sawed-off shotgun (Burn a Tag) or jumping off the train and losing the hitman (Deny Them Something They Want).
+
+    > Det. Enkidu is fighting the Big Bad Wolf’s werewolves out on the City streets. She fails to Take the Risk to push a man away from a werewolf in time, so the MC gives her a choice: take gruesome-bite-4 without Facing Danger (Give a Status) or watch the man being devoured by the werewolf (Make Something Horrible Happen)
+
+    If the choice given to the player is based on the circumstances alone, they make the choice and suffer the undesirable outcome.
+
+    If one or more of the options involves the character’s or crew Mysteries or Identities, the player decides whether to invoke Make a Hard Choice. Read more about Mystery and Identity dilemmas under Make a Hard Choice, page 254 in the Player's Guide
+
+    > Salamander tries to Convince his boss to let him off the hook one more time (so he can save the City). When he misses the move, the MC, playing the boss, gives him an ultimatum: “Be here in exactly one hour, or you’re fired.” Salamander must choose: if he neglects his duty to the City, a City-wide crisis will take place (Complicate Things, Bigtime); however, if he doesn’t, he will lose his job (Deny Them Something They Want). Tyrone, who is playing Salamander, decides that Salamander is Making a Hard Choice. In addition to the effects of the MC’s hard move, he also marks Attention or Crack on his Routine theme according to his choice.
+
+    Note that a hard MC move is not required for the player to Make a Hard Choice or for you to orchestrate a dilemma. Sometimes, the soft MC move Complicate Things can be enough to put the character in a position where she’s facing a difficult choice. However, using this hard MC move allows you introduce more pressure, putting the character on the spot and forcing her to choose.
