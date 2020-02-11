@@ -1,14 +1,13 @@
 {-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TemplateHaskell   #-}
 module NPC where
 
 
 import           Control.Applicative     ((<|>))
 import           Control.Monad.IO.Class  (MonadIO, liftIO)
-import           Data.Aeson              (FromJSON, ToJSON, defaultOptions,
-                                          fieldLabelModifier, genericParseJSON,
-                                          genericToJSON)
+import           Data.Aeson              (FromJSON, ToJSON, defaultOptions, fieldLabelModifier, genericParseJSON, genericToJSON)
 import           Data.Char               (isAlphaNum)
 import           Data.Maybe              (catMaybes, fromMaybe)
 import           Data.String.Conversions (cs)
@@ -25,18 +24,12 @@ import           Text.Megaparsec.Char    (string)
 
 import           Data.Function           ((&))
 import           Data.Monoid             ((<>))
-import           Lens.Micro.Platform     (makeLenses, (.~), (^.))
+import           Lens.Micro.Platform     (Lens', makeLenses, (.~), (^.), Lens)
 
 
 import           Brick
 import           Brick.Focus             (focusGetCurrent, focusRingCursor)
-import           Brick.Forms             (Form, allFieldsValid, checkboxField,
-                                          editPasswordField, editShowableField,
-                                          editTextField, focusedFormInputAttr,
-                                          formFocus, formState, handleFormEvent,
-                                          invalidFields, invalidFormInputAttr,
-                                          newForm, radioField, renderForm,
-                                          setFieldValid, (@@=))
+import           Brick.Forms             (Form, allFieldsValid, checkboxField, editPasswordField, editShowableField, editTextField, focusedFormInputAttr, formFocus, formState, handleFormEvent, invalidFields, invalidFormInputAttr, newForm, radioField, renderForm, setFieldValid, setFormFocus, (@@=))
 import qualified Brick.Widgets.Border    as B
 import qualified Brick.Widgets.Center    as C
 import qualified Brick.Widgets.Edit      as E
@@ -54,6 +47,8 @@ data Command
   | Background
   | Quit
   deriving (Show, Eq)
+
+
 
 
 type Parser = Parsec Void Text
@@ -153,18 +148,26 @@ promptNext = liftIO $ do
 
 -------------------------------------
 
-data Name = NameField
+data Field = NameField
           | LookField
           | DriveField
           | BackgroundField
           deriving (Eq, Ord, Show)
 
 
+currentField :: Field -> Lens NPC NPC Text Text
+currentField NameField       = name
+currentField LookField       = look
+currentField DriveField      = drive
+currentField BackgroundField = background
+
+
 -- This form is covered in the Brick User Guide; see the "Input Forms"
 -- section.
-mkForm :: NPC -> Form NPC e Name
+mkForm :: NPC -> Form NPC e Field
 mkForm =
-    let label s w = padBottom (Pad 1) $
+    let label :: String -> Widget n -> Widget n
+        label s w = padBottom (Pad 1) $
                     (vLimit 1 $ hLimit 15 $ str s <+> fill ' ') <+> w
     in newForm $
           [ label "Name" @@= editTextField name NameField (Just 1)
@@ -183,26 +186,43 @@ theMap = attrMap V.defAttr
   ]
 
 
-draw :: Form NPC e Name -> [Widget Name]
-draw f = [C.vCenter $ C.hCenter form <=> C.hCenter help]
+draw :: (Maybe FilePath) -> Form NPC e Field -> [Widget Field]
+draw path f = [C.vCenter $ C.hCenter form <=> C.hCenter file <=> C.hCenter help]
     where
-        form = B.border $ padTop (Pad 1) $ hLimit 1000 $ renderForm f
-        help = padTop (Pad 2) $ B.borderWithLabel (str "Help?") body
+        form = B.borderWithLabel (str "NPC") $ padTop (Pad 1) $ hLimit 1000 $ renderForm f
+        help = padTop (Pad 1) $ B.borderWithLabel (str "Help?") body
+        file = str $ fromMaybe "" path
         body = str $ "- Tab/Mouse to move\n" <>
-                     "- Enter/Esc quit"
+                     "- Enter to generate\n" <>
+                     "- Esc quit"
 
 
-app :: App (Form NPC e Name) e Name
-app =
-    App { appDraw = draw
+
+-- generate :: 
+
+
+app :: Maybe FilePath -> App (Form NPC e Field) e Field
+app path =
+    App { appDraw = draw path
         , appHandleEvent = \s ev ->
             case ev of
                 VtyEvent (V.EvResize {})     -> continue s
                 VtyEvent (V.EvKey V.KEsc [])   -> halt s
                 -- Enter quits only when we aren't in the multi-line editor.
-                VtyEvent (V.EvKey V.KEnter [])
-                    | focusGetCurrent (formFocus s) /= Just NameField -> halt s
-                    -- halt s
+
+                VtyEvent (V.EvKey V.KEnter []) -> do
+                  -- case focusGetCurrent (formFocus s) of
+
+                    let n = formState s
+                        f = fromMaybe NameField $ focusGetCurrent (formFocus s)
+
+                    if Text.null $ n ^. (currentField f)
+                      then do
+                        let n' = n & (currentField f) .~ "woot"
+                        let form = mkForm n'
+                        continue (setFormFocus f form)
+                    else
+                        handleFormEvent ev s >>= continue
 
                 _ -> do
                     s' <- handleFormEvent ev s
@@ -228,9 +248,9 @@ main :: IO ()
 main = do
   args <- System.getArgs
   case args of
-    [] -> editor Nothing emptyNPC
+    []     -> editor Nothing emptyNPC
     [path] -> editorFile path
-    _ -> putStrLn "Invalid: Either specify file or nothing"
+    _      -> putStrLn "Invalid: Either specify file or nothing"
 
 
 editorFile :: FilePath -> IO ()
@@ -249,7 +269,7 @@ editor path ninit = do
         f = mkForm ninit
 
     initialVty <- buildVty
-    f' <- customMain initialVty buildVty Nothing app f
+    f' <- customMain initialVty buildVty Nothing (app path) f
 
     putStrLn "END"
     let n = formState f'
