@@ -22,9 +22,12 @@ import           Text.Megaparsec         (Parsec, parseMaybe)
 import qualified Text.Megaparsec         as Parse
 import           Text.Megaparsec.Char    (string)
 
+import           Content.Names           (FirstName, LastName)
+import qualified Content.Names           as Names
 import           Data.Function           ((&))
 import           Data.Monoid             ((<>))
-import           Lens.Micro.Platform     (Lens', makeLenses, (.~), (^.), Lens)
+import           Generate                (randomElement)
+import           Lens.Micro.Platform     (Lens, Lens', makeLenses, (.~), (^.))
 
 
 import           Brick
@@ -50,17 +53,25 @@ data Command
 
 
 
+data Editor = Editor
+  { path       :: Maybe FilePath
+  , firstNames :: [FirstName]
+  , lastNames  :: [LastName]
+  }
+
+
+
 
 type Parser = Parsec Void Text
 
 
-parseCommand :: Parser Command
-parseCommand =
-      string "name" *> pure Name
-  <|> string "drive" *> pure Drive
-  <|> string "look" *> pure Look
-  <|> string "background" *> pure Background
-  <|> (string "quit" <|> string "q") *> pure Quit
+-- parseCommand :: Parser Command
+-- parseCommand =
+--       string "name" *> pure Name
+--   <|> string "drive" *> pure Drive
+--   <|> string "look" *> pure Look
+--   <|> string "background" *> pure Background
+--   <|> (string "quit" <|> string "q") *> pure Quit
 
 
 data NPC = NPC
@@ -82,66 +93,64 @@ emptyNPC :: NPC
 emptyNPC = NPC "" "" "" ""
 
 
-npc :: MonadIO m => NPC -> m ()
-npc n = do
-  renderNPC n
-  promptNPC n
-
-promptNPC :: MonadIO m => NPC -> m ()
-promptNPC n = do
-  t <- promptNext
-
-  case parseMaybe parseCommand t of
-    Nothing -> do
-      liftIO $ putStrLn "Invalid Command"
-      promptNPC n
-    Just Quit -> do
-      liftIO $ renderNPC n
-      liftIO $ putStrLn "SAVING..."
-    Just c -> do
-      n' <- runCommand c n
-      npc n'
+------------------------------------------------------
 
 
 
-runCommand :: MonadIO m => Command -> NPC -> m NPC
-runCommand Name n       = pure $ n & name .~ "Harold"
-runCommand Drive n      = pure $ n & drive .~ "Drive"
-runCommand Look n       = pure $ n & look .~ "Look"
-runCommand Background n = pure $ n & background .~ "Background"
-runCommand Quit n       = pure n
+
+-- npc :: MonadIO m => NPC -> m ()
+-- npc n = do
+--   renderNPC n
+--   promptNPC n
+
+-- promptNPC :: MonadIO m => NPC -> m ()
+-- promptNPC n = do
+--   t <- promptNext
+
+--   case parseMaybe parseCommand t of
+--     Nothing -> do
+--       liftIO $ putStrLn "Invalid Command"
+--       promptNPC n
+--     Just Quit -> do
+--       liftIO $ renderNPC n
+--       liftIO $ putStrLn "SAVING..."
+--     Just c -> do
+--       n' <- runCommand c n
+--       npc n'
 
 
 
-renderNPC :: MonadIO m => NPC -> m ()
-renderNPC n = liftIO $ do
-  putStrLn ""
-  mapM_ putStrLn $ catMaybes
-     [ line "Name" (n ^. name)
-     , line "Drive" (n ^. drive)
-     , line "Background" (n ^. background)
-     , line "Look" (n ^. look)
-     ]
-
-  where
-
-    line :: String -> Text -> Maybe String
-    line _ "" = Nothing
-    line l v  = Just $ l ++ ": " ++ (cs v)
-
--- can I make these separate programs? and pipe them into each other?
--- I just need to save the output as something, no?
-
--- you can run it in some kind of monad. Enter it. Then run the other commands. Does it work like that?
--- yeah it won't really work like that. My program exits.
--- but you could use it like an editor. Save it to disk.
--- naw this is dumb. I'm just avoiding work. I want my awesome interface.
+-- runCommand :: MonadIO m => Command -> NPC -> m NPC
+-- runCommand Name n       = pure $ n & name .~ "Harold"
+-- runCommand Drive n      = pure $ n & drive .~ "Drive"
+-- runCommand Look n       = pure $ n & look .~ "Look"
+-- runCommand Background n = pure $ n & background .~ "Background"
+-- runCommand Quit n       = pure n
 
 
-promptNext :: MonadIO m => m Text
-promptNext = liftIO $ do
-  putStrLn "quit | background | look | drive | name"
-  Text.getLine
+
+-- renderNPC :: MonadIO m => NPC -> m ()
+-- renderNPC n = liftIO $ do
+--   putStrLn ""
+--   mapM_ putStrLn $ catMaybes
+--      [ line "Name" (n ^. name)
+--      , line "Drive" (n ^. drive)
+--      , line "Background" (n ^. background)
+--      , line "Look" (n ^. look)
+--      ]
+
+--   where
+
+--     line :: String -> Text -> Maybe String
+--     line _ "" = Nothing
+--     line l v  = Just $ l ++ ": " ++ (cs v)
+
+
+
+-- promptNext :: MonadIO m => m Text
+-- promptNext = liftIO $ do
+--   putStrLn "quit | background | look | drive | name"
+--   Text.getLine
 
 
 
@@ -198,12 +207,39 @@ draw path f = [C.vCenter $ C.hCenter form <=> C.hCenter file <=> C.hCenter help]
 
 
 
--- generate :: 
+-- TODO find a list of names! First and Last
+generateName :: MonadIO m => Editor -> m Text
+generateName e = do
+  first <- randomElement (firstNames e)
+  last <- randomElement (lastNames e)
+
+  pure $ Names.name first <> " " <> last
+  -- return "Mr Fancy"
 
 
-app :: Maybe FilePath -> App (Form NPC e Field) e Field
-app path =
-    App { appDraw = draw path
+generateLook :: MonadIO m => m Text
+generateLook = return "Edgy"
+
+
+generateBackground :: MonadIO m => m Text
+generateBackground = return "Parents will killed by Jellybeans"
+
+
+generateDrive :: MonadIO m => m Text
+generateDrive = return "To loot and pillage"
+
+
+-- convert that CSV to yaml? Or just keep it as CSV...
+generateField :: MonadIO m => Field -> Editor -> m Text
+generateField NameField       e = generateName e
+generateField LookField       _ = generateLook
+generateField DriveField      _ = generateDrive
+generateField BackgroundField _ = generateBackground
+
+
+app :: Editor -> App (Form NPC e Field) e Field
+app e =
+    App { appDraw = draw (path e)
         , appHandleEvent = \s ev ->
             case ev of
                 VtyEvent (V.EvResize {})     -> continue s
@@ -218,7 +254,8 @@ app path =
 
                     if Text.null $ n ^. (currentField f)
                       then do
-                        let n' = n & (currentField f) .~ "woot"
+                        t <- generateField f e
+                        let n' = n & (currentField f) .~ t
                         let form = mkForm n'
                         continue (setFormFocus f form)
                     else
@@ -261,6 +298,14 @@ editorFile path = do
 
 editor :: Maybe FilePath -> NPC -> IO ()
 editor path ninit = do
+    putStrLn "Loading Content..."
+
+    firsts <- Names.loadFirstNames
+    lasts <- Names.loadLastNames
+
+    let e = Editor path firsts lasts
+
+
     let buildVty = do
           v <- V.mkVty =<< V.standardIOConfig
           V.setMode (V.outputIface v) V.Mouse True
@@ -269,7 +314,7 @@ editor path ninit = do
         f = mkForm ninit
 
     initialVty <- buildVty
-    f' <- customMain initialVty buildVty Nothing (app path) f
+    f' <- customMain initialVty buildVty Nothing (app e) f
 
     putStrLn "END"
     let n = formState f'
@@ -283,3 +328,5 @@ editor path ninit = do
     -- if allFieldsValid f'
     --    then putStrLn "The final form inputs were valid."
     --    else putStrLn $ "The final form had invalid inputs: " <> show (invalidFields f')
+
+

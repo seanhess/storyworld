@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE DeriveGeneric     #-}
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
@@ -13,11 +13,11 @@ import           Control.Monad.IO.Class     (MonadIO, liftIO)
 import           Data.Aeson                 (FromJSON, ToJSON)
 import           Data.String.Conversions    (cs)
 import           Data.Text                  (Text)
-import qualified Data.Text as Text
+import qualified Data.Text                  as Text
 import qualified Data.Yaml                  as Yaml
+import           Generate                   (randomElement)
 import           GHC.Generics               (Generic)
 import           System.Console.Pretty      (Style (..), style)
-import           System.Random              (randomRIO)
 
 
 data Names = Names
@@ -31,17 +31,6 @@ instance ToJSON Names
 main :: IO ()
 main = simpleMain ui
 
-
-
--- Note: we should USE UP names. Ooh :)
--- not safe at all :)
-
-randomElement :: MonadIO m => [a] -> m a
-randomElement [] = error "empty list"
-randomElement [a] = pure a
-randomElement as = do
-  i <- liftIO $ randomRIO (0, length as - 1)
-  pure $ as !! i
 
 
 

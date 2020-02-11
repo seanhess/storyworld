@@ -34,6 +34,9 @@ dependencies:
 - vty
 - yaml
 
+default-extensions:
+- DeriveGeneric
+
 executables:
   storyworld-exe:
     main:                Main.hs
