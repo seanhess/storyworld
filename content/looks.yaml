@@ -1,0 +1,135 @@
+hair:
+  - wild hair
+  - clean cut
+  - big hair
+  - curly hair
+  - long hair
+  - short hair
+  - bald
+  - shaven
+  - blond hair
+  - trendy hair
+  - perfect hair
+  - boring hair
+  - ironic hair
+  - serious hair
+  - eccentric hair
+  - practical hair
+
+age:
+  - elderly
+  - really old
+  - young
+  - middle-aged
+  - 30-something
+  - older
+  - past their prime
+  - just a kid
+  - teenager
+
+body:
+  - overweight
+  - athletic
+  - curvy
+  - sculpted
+  - big and fabulous
+  - slender
+  - petite
+  - husky
+  - obese
+  - thin
+  - heavy
+  - beautiful
+  - attractive
+  - unattractive
+  - ugly
+  - plain
+  - pale
+  - small
+  - bulky
+  - strong
+
+manner:
+  - ragged
+  - rugged
+  - hot tempered
+  - worn down
+  - short temper
+  - nice
+  - rude
+  - kind
+  - distracted
+  - flighty
+  - charming
+  - engaged
+  - blunt
+  - honest
+  - threatening
+  - calm
+  - unflappable
+  - arrogant
+  - shy
+  - nervous
+  - determined
+  - bold
+  - down to business
+  - boring
+  - eccentric
+  - pretentious
+  - serious
+  - ironic
+  - high spirited
+  - mean spirited
+  - friendly
+  - odd
+  - grumpy
+  - reserved
+  - selfish
+  - humble
+  - polite
+  - stubborn
+  - busy
+  - mild mannered
+  - strange
+  - distant
+  - quiet
+  - sensitive
+  - weird
+  - intelligent
+  - fiery
+  - passionate
+  - naive
+  - slightly crazy
+  - wise
+  - innocent
+  - sharp
+  - witty
+  - obsessed
+  - peaceful
+  - threatening
+  - malicious
+
+clothes:
+  - practical clothes
+  - ironic clothes
+  - eccentric clothes
+  - pretentious clothes
+  - trendy
+  - stylish
+  - down to business
+  - out of fashion
+  - sloppy clothes
+  - clean-cut clothes
+  - basic
+  - pop culture (band T Shirt)
+  - expensive clothes
+  - odd clothes
+  - cheap clothes
+  - frazzled
+  - iconic hat
+  - hoodie featuring a band
+  - wears leather gloves
+
+feature:
+  - piercings
+  - tattoos

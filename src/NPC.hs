@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE ScopedTypeVariables     #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE RankNTypes        #-}
 {-# LANGUAGE TemplateHaskell   #-}
@@ -217,9 +218,23 @@ generateName e = do
   -- return "Mr Fancy"
 
 
-generateLook :: MonadIO m => m Text
-generateLook = return "Edgy"
 
+data Looks = Looks
+  { hair :: [Text]
+  , age :: [Text]
+  , body :: [Text]
+  , manner :: [Text]
+  , clothes :: [Text]
+  , feature :: [Text]
+  } deriving (Show, Eq, Generic)
+
+instance FromJSON Looks
+
+
+generateLook :: forall m. MonadIO m => m Text
+generateLook = do
+  l <- Yaml.decodeFileThrow "content/looks.yaml" :: m Looks
+  randomElement $ mconcat [hair l, age l, body l, manner l, clothes l, feature l]
 
 generateBackground :: MonadIO m => m Text
 generateBackground = return "Parents will killed by Jellybeans"
